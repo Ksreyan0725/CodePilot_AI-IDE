@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Site Under Maintenance</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://img.icons8.com/arcade/64/s-key.png" sizes="64x64">
+
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta http-equiv="refresh" content="0; url=maintenance.html">
+  <script>window.location.replace('index.html');</script>
+  
+  <style>
+    /* Full-screen centered maintenance card */
+    html,body { height:100%; margin:0; font-family: Arial, Helvetica, sans-serif; background:#000; color:#4d3934; }
+    .wrap {
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;           /* Align from top so we can push content lower */
+      justify-content:center;
+      padding:2rem;
+      padding-top: calc(55vh + 1rem);  /* Push content further down to clear logo */
+      box-sizing:border-box;
+    }
+    .card {
+      text-align:center;
+      max-width:1000px;
+      width:100%;
+    }
+    .hero-img {
+      width:100%;
+      max-height:420px;
+      object-fit:cover;
+      border-radius:8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+
+
+    }
+    h1 { font-size:2.2rem; margin:1rem 0 0.25rem; letter-spacing:1px; }
+    p { margin:0.25rem 0 1rem; opacity:0.9; }
+    .btn {
+      display:inline-flex;             /* Align nicely even if multi-line */
+      align-items:center;
+      justify-content:center;
+      margin-top:1rem;                 /* More space above the button */
+      padding:0.6rem 1rem;
+      background:transparent;
+      color:#d19cb2;
+      border:2px solid rgb(142, 54, 54);
+      border-radius:6px;
+      text-decoration:none;
+      transition:all .18s ease;
+    }
+    .btn:hover { transform:translateY(-3px); border-color:rgba(255,255,255,0.4); }
+    @media (max-width:600px) {
+      h1 { font-size:1.4rem; }
+      .wrap { padding-top: calc(40vh + 1rem); } /* Push lower on small screens too */
+    }
+
+    /* Full-screen background image with cover */
+    .wrap {
+      background-image: url('Assets/Picture/maintainance.jpg'); /* Replace with your maintenance image path */
+      background-size: cover;            /* Make image cover full screen */
+      background-position: center 35%;   /* Raise focal area so card sits below big text */
+      background-repeat: no-repeat;      /* No tiling */
+      background-attachment: fixed;      /* Subtle parallax on scroll */
+      position: relative;                /* For overlay */
+    }
+
+    /* Dark overlay for text readability */
+    .wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+    }
+
+    /* Elevate text content above overlay and add readability styles */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.144);   /* Stronger backdrop to prevent overlap visibility */
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);        /* Subtle blur behind text */
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;                   /* Stack children vertically */
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;                    /* A bit more space between items */
+    }
+
+    h1, h2 {
+      color:rgb(193, 70, 36);
+    }
+    
+    
+    p {
+       color: darkolivegreen;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <!-- Use the maintenance image in the same folder as these HTML files -->
+      <h1>  <strong>This Site Is Under Maintenance</strong></h1>
+      <p>Sorry for the inconvenience,We'll be back shortly!</p>
+      <!-- optional button to go back to home or to contact -->
+      <a class="btn" href="contact.html">Contact Admin</a>
+    </div>
+  </div>
+</body>
+</html>

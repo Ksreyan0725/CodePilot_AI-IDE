@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePilot_AI IDE - Create Account</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="logo-container" style="position: sticky; top: 0; z-index: 100; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 15px; width: 100%; text-align: center;">
+        <div class="code-icon" style="display: inline-block;">&lt;/&gt;</div>
+        <div class="logo-text" style="display: inline-block;">CodePilot<span class="logo-highlight">_AI</span> IDE</div>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+            <!-- Chat messages will be added here dynamically -->
+            <div class="message ai-message" style="animation-delay: 0.1s;">
+                <div class="message-header">CodePilot AI</div>
+                <div class="message-content">How do I implement a binary search tree in Python?</div>
+            </div>
+            
+            <div class="message user-message" style="animation-delay: 0.5s;">
+                <div class="message-header">User</div>
+                <div class="message-content">Here's a simple implementation of a binary search tree in Python with insert, search, and delete operations:</div>
+            </div>
+            
+            <div class="message ai-message" style="animation-delay: 0.9s;">
+                <div class="message-header">CodePilot AI</div>
+                <div class="message-content">Would you like me to explain how the implementation works or help you optimize it further?</div>
+            </div>
+            
+            <div class="message ai-message" style="animation-delay: 1.3s;">
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="signup-container" style="margin-top: 80px; display: flex; flex-direction: column; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div class="form-section" style="width: 100%;">
+             <h2 class="form-title">Create Account</h2>
+            
+            <form id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="you@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms</a> & <a href="#">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="create-account-btn">Create Account</button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="#">Sign In</a>
+            </div>
+        </div>
+    </div>
+        
+    <script src="signup.js"></script>
+</body>
+</html>
