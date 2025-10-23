@@ -94,6 +94,12 @@ body {
     max-width: calc(100% - 140px); /* Account for mode-toggle button width + padding */
 }
 
+.logo-container .subtitle {
+    width: 100%;
+    margin-top: 4px;
+    margin-left: 62px; /* Align with brand name (logo width + gap) */
+}
+
 .logo {
     width: 50px;
     height: 50px;
@@ -164,6 +170,13 @@ body {
     color: #64b5f6;
     text-shadow: 0 0 15px rgba(100, 181, 246, 0.6);
     animation: textGlow 2s ease-in-out infinite;
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
 }
 
 @keyframes textGlow {
