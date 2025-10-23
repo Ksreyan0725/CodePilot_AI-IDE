@@ -14,7 +14,7 @@
         <div class="logo">
             <img src="./dark-logo.png" alt="CodePilot_AI IDE Logo" class="logo-image">
         </div>
-        <div class="brand-name">CodePilot<span class="highlight">_AI</span> IDE</div>
+        <div class="brand-name" id="brandTypingText"></div>
         <p class="subtitle">Your personal AI-powered coding workspace.</p>
     </div>
 
@@ -44,6 +44,7 @@
         <div class="form-wrapper">
             <!-- Left Side - Quick Signup -->
             <div class="quick-signup-box">
+                <p class="form-tagline">Vibe Coding Seamlessly ✨</p>
                 <h3>Quick Signup</h3>
                 <p>Sign up with your preferred service</p>
                 
@@ -80,12 +81,15 @@
                         Zoho Mail
                     </button>
                 </div>
+                
+                <div class="quick-signin-footer">
+                    Already have an account? <a href="../Login/index.html">Sign In</a>
+                </div>
             </div>
 
             <!-- Right Side - Form -->
             <div class="form-box">
                 <h2>Create Account</h2>
-                <p class="form-tagline">Vibe Coding Seamlessly ✨</p>
 
                 <form id="signupForm" onsubmit="handleFormSubmit(event)">
                     <div class="form-row">
@@ -134,12 +138,58 @@
                 </form>
 
                 <div class="form-footer">
-                    Already have an account? <a href="../codepilot-login.html">Sign In</a>
+                    Already have an account? <a href="../Login/index.html">Sign In</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        // Typing animation for brand name
+        const brandText = 'CodePilot_AI IDE';
+        const brandTypingElement = document.getElementById('brandTypingText');
+        let brandIndex = 0;
+        let typingTimeout = null;
+
+        function startTypingAnimation() {
+            // Clear any existing animation
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+            
+            // Reset the element and index
+            brandTypingElement.innerHTML = '';
+            brandIndex = 0;
+            
+            // Start typing
+            typeBrandText();
+        }
+
+        function typeBrandText() {
+            if (brandIndex < brandText.length) {
+                const char = brandText.charAt(brandIndex);
+                
+                // Build "_AI" as a complete highlighted section
+                if (brandIndex === 9) {
+                    // Add the entire "_AI" span at once when we reach index 9
+                    brandTypingElement.innerHTML += '<span class="highlight">_AI</span>';
+                    brandIndex = 12; // Skip to after "I" (index 11 + 1)
+                } else if (brandIndex < 9 || brandIndex >= 12) {
+                    // Add regular characters
+                    brandTypingElement.innerHTML += char;
+                    brandIndex++;
+                } else {
+                    // Skip indices 10 and 11 since we already added them
+                    brandIndex++;
+                }
+                
+                typingTimeout = setTimeout(typeBrandText, 100);
+            }
+        }
+
+        // Start typing animation on page load
+        startTypingAnimation();
+    </script>
     <script src="signup.js"></script>
 </body>
 </html>

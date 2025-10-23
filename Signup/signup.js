@@ -1,7 +1,7 @@
 const questions = [
     "Hi there! Welcome to CodePilot_AI IDE. I'm here to help you create your account. What's your full name?",
     "Nice to meet you, {name}! What should I call you? (Your preferred name or nickname)",
-    "Great! What's your Gmail address?",
+    "Great! What's your mail address?",
     "Perfect! Now, please create a secure password.",
     "Awesome! All set. Creating your account..."
 ];
@@ -46,6 +46,11 @@ function toggleMode() {
         formMode.style.display = 'block';
         modeText.textContent = 'Use Chat Mode';
         localStorage.setItem('signupMode', 'form');
+    }
+    
+    // Restart typing animation when switching modes
+    if (typeof startTypingAnimation === 'function') {
+        startTypingAnimation();
     }
 }
 
