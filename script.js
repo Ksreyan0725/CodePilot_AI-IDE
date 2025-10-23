@@ -81,3 +81,12 @@ function signupWithGoogle() {
 function signupWithGitHub() {
     alert('GitHub OAuth integration would redirect to GitHub sign-in here!');
 }
+
+   // Keep existing animations
+         document.addEventListener('DOMContentLoaded', function() {
+             // Add animation classes to elements
+             const elements = document.querySelectorAll('.login-card, .feature');
+             elements.forEach((el, index) => {
+                 el.style.animationDelay = `${index * 0.1}s`;
+             });
+         });
