@@ -1,3 +1,12 @@
+/* Smooth page fade-in/out */
+body {
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
+
+body.page-loaded {
+    opacity: 1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -92,6 +101,7 @@ body {
     padding: 20px;
     flex-wrap: wrap;
     max-width: calc(100% - 140px); /* Account for mode-toggle button width + padding */
+    cursor: pointer;
 }
 
 .logo-container .subtitle {
@@ -252,6 +262,14 @@ body {
     border-right: 1px solid rgba(100, 181, 246, 0.1);
 }
 
+/* Nudge the left quick form slightly upward on larger screens */
+@media screen and (min-width: 769px) {
+    .quick-signup-box {
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}
+
 .quick-signup-box h3 {
     font-size: 22px;
     margin-bottom: 8px;
@@ -330,6 +348,7 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #8892a6;
     font-size: 14px;
+    display: none; /* Hidden by default per request */
 }
 
 .quick-signin-footer a {
@@ -387,14 +406,23 @@ body {
 
 .form-tagline {
     color: #64b5f6;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
+    margin-top: -8px; /* nudge up slightly */
     margin-bottom: 20px;
     letter-spacing: 0.5px;
     animation: textGlow 2s ease-in-out infinite;
     position: relative;
     display: block;
-    text-align: center;
+    text-align: left; /* move to left corner */
+    align-self: flex-start;
+}
+
+/* Make the tagline bigger via strong as requested */
+.form-tagline strong {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .social-buttons {
@@ -614,9 +642,20 @@ body {
 }
 
 .checkbox-group label {
-    color: #8892a6;
+    color: rgba(255, 255, 255, 0.85);
     font-size: 14px;
     margin: 0;
+}
+
+/* Ensure the Terms & Conditions link is clearly visible */
+.checkbox-group label a {
+    color: #64b5f6;
+    text-decoration: underline;
+}
+
+.checkbox-group label a:hover {
+    color: #4a9eff;
+    text-decoration: underline;
 }
 
 .submit-btn {
@@ -698,6 +737,38 @@ body {
     }
 }
 
+/* Hide-up animation for older chat messages */
+@keyframes hideUp {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(-40px);
+        transform: translateY(-40px);
+    }
+}
+
+.message.hide-up {
+    opacity: 0;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+    transition: opacity 250ms ease, transform 250ms ease;
+}
+
+/* Smoothly hide the input area when chat completes */
+.input-container.hidden {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 300ms ease, max-height 300ms ease, padding 300ms ease;
+}
+
 .message-avatar {
     background: #2d3548;
     border-radius: 12px;
@@ -750,6 +821,23 @@ body {
     outline: none;
     background: transparent;
     color: #fff;
+}
+
+/* Make selection visible on dark bg and avoid white flash on paste */
+#userInput::selection {
+    background: rgba(100, 181, 246, 0.25);
+    color: #fff;
+}
+
+/* Prevent white/yellow autofill background on some browsers */
+#userInput:-webkit-autofill,
+#userInput:-webkit-autofill:hover,
+#userInput:-webkit-autofill:focus,
+#userInput:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 #userInput::placeholder {

@@ -44,7 +44,7 @@
         <div class="form-wrapper">
             <!-- Left Side - Quick Signup -->
             <div class="quick-signup-box">
-                <p class="form-tagline">Vibe Coding Seamlessly ✨</p>
+                <p class="form-tagline"><strong>Vibe Coding Seamlessly ✨</strong></p>
                 <h3>Quick Signup</h3>
                 <p>Sign up with your preferred service</p>
                 
@@ -187,8 +187,20 @@
             }
         }
 
-        // Start typing animation on page load
-        startTypingAnimation();
+        // Start typing animation on page load and bind logo reload
+        window.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('page-loaded');
+            startTypingAnimation();
+            var logo = document.querySelector('.logo-container');
+            if (logo) {
+                logo.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Fade out then reload for a smooth effect
+                    document.body.classList.remove('page-loaded');
+                    setTimeout(function(){ window.location.reload(); }, 300);
+                });
+            }
+        });
     </script>
     <script src="signup.js"></script>
 </body>

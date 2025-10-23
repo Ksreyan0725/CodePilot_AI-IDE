@@ -12,6 +12,17 @@ const chatMessages = document.getElementById('chatMessages');
 const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 let isChatMode = true;
+let revealInitialized = false;
+
+// Escape HTML to prevent pasted rich content from injecting styles/markup
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
 // Check localStorage for saved mode preference
 function initializeMode() {
@@ -28,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userInput) {
         userInput.focus();
     }
+    initRevealOnScroll();
 });
 
 function toggleMode() {
@@ -58,15 +70,31 @@ function addMessage(text, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isUser ? 'user-message' : ''}`;
     
+    const safeText = escapeHTML(text);
     messageDiv.innerHTML = `
         <div class="message-avatar">${isUser ? 'User' : 'CodePilot_AI'}</div>
         <div class="message-content">
-            <p>${text}</p>
+            <p>${safeText}</p>
         </div>
     `;
     
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // After a few messages, start hiding the earliest ones to keep focus
+    const messages = chatMessages.querySelectorAll('.message');
+    if (messages.length > 5) {
+        // Hide the first two visible messages smoothly
+        for (let i = 0; i < messages.length - 4; i++) {
+            const m = messages[i];
+            if (!m.classList.contains('hide-up')) {
+                m.classList.add('hide-up');
+            }
+        }
+    }
+
+    // Try revealing any hidden messages currently in view
+    checkReveal();
 }
 
 // Function to check if text contains dark mode related words
@@ -141,6 +169,9 @@ function processAnswer(answer) {
                     addMessage("🎉 Success! Your account has been created successfully. Welcome to CodePilot_AI IDE!");
                     setTimeout(() => {
                         addMessage("Redirecting you to the dashboard...");
+                        // Hide input smoothly once flow is complete
+                        const inputArea = document.querySelector('.input-container');
+                        if (inputArea) inputArea.classList.add('hidden');
                     }, 1500);
                 }, 2000);
             }
@@ -196,6 +227,43 @@ function signUpWithZoho() {
 function handleFormSubmit(e) {
     e.preventDefault();
     alert('Account created successfully! Redirecting to dashboard...');
+}
+
+// Reveal hidden (older) messages when scrolled into view
+function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    // Consider element in view if at least its top is within viewport with a small margin
+    return (
+        rect.bottom >= 0 &&
+        rect.top <= vh &&
+        rect.right >= 0 &&
+        rect.left <= vw
+    );
+}
+
+function checkReveal() {
+    if (!chatMessages) return;
+    const hiddenMessages = chatMessages.querySelectorAll('.message.hide-up');
+    hiddenMessages.forEach(m => {
+        if (isInViewport(m)) {
+            m.classList.remove('hide-up');
+        }
+    });
+}
+
+function initRevealOnScroll() {
+    if (revealInitialized) return;
+    revealInitialized = true;
+    // Reveal on window scroll (page scroll)
+    window.addEventListener('scroll', checkReveal, { passive: true });
+    // Reveal on chat container scroll (mobile small screens)
+    if (chatMessages) {
+        chatMessages.addEventListener('scroll', checkReveal, { passive: true });
+    }
+    // Initial check
+    checkReveal();
 }
 
 // Password strength checker

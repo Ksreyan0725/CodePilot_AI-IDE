@@ -16,6 +16,16 @@
             position: relative;
             overflow: hidden;
         }
+        
+            /* Smooth page fade-in/out */
+            body {
+                opacity: 0;
+                transition: opacity 300ms ease;
+            }
+        
+            body.page-loaded {
+                opacity: 1;
+            }
 
         .chat-background {
             position: fixed;
@@ -80,6 +90,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 30px;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -112,12 +123,17 @@
             font-weight: 300;
             margin-bottom: 10px;
             color: #ffffff;
+            /* Continuous subtle glow for the brand title */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.08), 0 0 20px rgba(88, 141, 239, 0.08);
+            animation: titleGlow 5s ease-in-out infinite;
         }
 
         .main-title .highlight {
             color: #4a9eff !important;
             font-weight: 600;
             display: inline;
+            /* Continuous blue pulse for the _AI highlight */
+            animation: textGlow 3.2s ease-in-out infinite;
         }
 
         .subtitle {
@@ -191,6 +207,22 @@
             }
             100% {
                 background-position: 200% center;
+            }
+        }
+
+        /* Brand title subtle multi-color glow pulse */
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 6px rgba(255, 255, 255, 0.10),
+                    0 0 14px rgba(100, 181, 246, 0.10),
+                    0 0 22px rgba(168, 85, 247, 0.08);
+            }
+            50% {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.18),
+                    0 0 22px rgba(100, 181, 246, 0.20),
+                    0 0 34px rgba(168, 85, 247, 0.16);
             }
         }
 

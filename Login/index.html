@@ -104,12 +104,12 @@ def insert(self, value):
         <form id="loginForm">
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="you@example.com" required>
+                <input type="email" id="email" required>
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="••••••••" required>
+                <input type="password" id="password" required>
             </div>
 
             <div class="checkbox-group">
@@ -125,11 +125,29 @@ def insert(self, value):
 
             <div class="create-account">
                 <p>Don't have an account?</p>
-                <button type="button" class="create-account-btn" onclick="window.location.href='../Signup/signup.html'">Create Account</button>
+                <button type="button" class="create-account-btn" onclick="navigateWithTransition('../Signup/signup.html')">Create Account</button>
             </div>
         </form>
     </div>
     <script>
+        // Page fade-in on load
+        window.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('page-loaded');
+            // Clicking the logo reloads the page (with fade)
+            var logo = document.querySelector('.logo-container');
+            if (logo) {
+                logo.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navigateWithTransition(window.location.href);
+                });
+            }
+        });
+
+        // Smooth navigate with fade-out
+        function navigateWithTransition(url) {
+            document.body.classList.remove('page-loaded');
+            setTimeout(function() { window.location.href = url; }, 300);
+        }
         // Typing animation for brand name
         const text = 'CodePilot_AI IDE';
         const typingElement = document.getElementById('typingText');
