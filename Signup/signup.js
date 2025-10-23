@@ -13,6 +13,23 @@ const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 let isChatMode = true;
 
+// Check localStorage for saved mode preference
+function initializeMode() {
+    const savedMode = localStorage.getItem('signupMode');
+    if (savedMode === 'form') {
+        isChatMode = true; // Start as true so toggleMode switches it to false
+        toggleMode();
+    }
+}
+
+// Run initialization when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMode();
+    if (userInput) {
+        userInput.focus();
+    }
+});
+
 function toggleMode() {
     isChatMode = !isChatMode;
     const chatMode = document.getElementById('chatMode');
@@ -23,10 +40,12 @@ function toggleMode() {
         chatMode.style.display = 'block';
         formMode.style.display = 'none';
         modeText.textContent = 'Use Quick Form';
+        localStorage.setItem('signupMode', 'chat');
     } else {
         chatMode.style.display = 'none';
         formMode.style.display = 'block';
         modeText.textContent = 'Use Chat Mode';
+        localStorage.setItem('signupMode', 'form');
     }
 }
 
@@ -161,6 +180,14 @@ function signUpWithGitHub() {
     alert('GitHub Sign-Up would be initiated here');
 }
 
+function signUpWithMicrosoft() {
+    alert('Microsoft Sign-Up would be initiated here');
+}
+
+function signUpWithZoho() {
+    alert('Zoho Mail Sign-Up would be initiated here');
+}
+
 function handleFormSubmit(e) {
     e.preventDefault();
     alert('Account created successfully! Redirecting to dashboard...');
@@ -218,4 +245,19 @@ passwordInput.addEventListener('input', function() {
     }
 });
 
-userInput.focus();
+// Toggle password visibility
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('passwordInput');
+    const eyeIcon = document.querySelector('.eye-icon');
+    const eyeOffIcon = document.querySelector('.eye-off-icon');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.style.display = 'none';
+        eyeOffIcon.style.display = 'block';
+    } else {
+        passwordInput.type = 'password';
+        eyeIcon.style.display = 'block';
+        eyeOffIcon.style.display = 'none';
+    }
+}
