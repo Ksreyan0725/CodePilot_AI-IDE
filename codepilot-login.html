@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodePilot_AI IDE - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="chat-background">
+        <div class="chat-message user-message">
+            <div class="message-content">How do I implement a binary search tree in Python?</div>
+        </div>
+        <div class="chat-message ai-message">
+            <div class="message-content">Here's a clear implementation of a BST:
+```python
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+```</div>
+        </div>
+        <div class="chat-message user-message">
+            <div class="message-content">Can you add insertion and search methods?</div>
+        </div>
+        <div class="chat-message ai-message">
+            <div class="message-content">Here are the methods you need:
+```python
+def insert(self, value):
+    if value < self.value:
+        if self.left is None:
+            self.left = Node(value)
+        else:
+            self.left.insert(value)
+```</div>
+        </div>
+        <div class="chat-message user-message">
+            <div class="message-content">How do I handle duplicate values?</div>
+        </div>
+        <div class="chat-message ai-message">
+            <div class="message-content">You can either: 
+1. Disallow duplicates
+2. Add a count field
+3. Store duplicates in the right subtree</div>
+        </div>
+    </div>
+    <div class="left-section">
+        <div class="logo-container">
+            <div class="logo-icon">&lt;/&gt;</div>
+        </div>
+        
+        <h1 class="main-title">CodePilot<span class="highlight">_AI</span> IDE</h1>
+        <p class="subtitle">Your personal AI-powered coding workspace.</p>
+
+        <div class="feature">
+            <div class="feature-icon blue">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>AI-powered code review and bug fixing</h3>
+                <p>Intelligent analysis that catches errors before they happen</p>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon green">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Real-time code editing and collaboration</h3>
+                <p>Work together seamlessly with your team</p>
+            </div>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Runs directly in your browser — no setup needed</h3>
+                <p>Get started instantly, anywhere, anytime</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+            </div>
+
+            <button type="submit" class="sign-in-btn">Sign In</button>
+
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a>
+            </div>
+
+            <div class="create-account">
+                <p>Don't have an account?</p>
+                <button type="button" class="create-account-btn" onclick="window.location.href='Signup/signup.html'">Create Account</button>
+            </div>
+        </form>
+    </div>
+</body> 
+</html>
