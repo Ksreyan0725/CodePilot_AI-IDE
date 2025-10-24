@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error 404</title>
+   <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://img.icons8.com/arcade/64/s-key.png" sizes="64x64">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    
+    /* Background image */
+  body {
+    background: url('../assets/ERROR.Image/404-error.ng') no-repeat center center fixed; /* Sets the image at the center and fixes it */
+    background-size: cover; /* Makes the image cover the entire viewport */
+    margin: 0; /* Removes default body margin to avoid scrollbars */
+    height: 100vh; /* Ensures the body takes full viewport height */
+}
+
+
+    /* Button container */
+    .button-container {
+      position: absolute;
+      left: 50%;
+      top: 70%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 20px; /* space between buttons */
+    }
+
+    /* Button style */
+    .button {
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff; /* High-contrast text */
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid #ff0000;
+      border-radius: 8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); /* Improve readability on image */
+    }
+
+    .button:hover {
+      background: rgba(0, 0, 0, 0.6); /* Darker hover for stronger contrast */
+      color: #fff; /* Keep text readable */
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+    }
+
+    .button:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    /* Disappear animation */
+    .button.disappear {
+      animation: shrinkAway 0.7s forwards;
+    }
+
+    @keyframes shrinkAway {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.5); }
+      100% { opacity: 0; transform: scale(0); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Buttons -->
+  <div class="button-container">
+    <button class="button" onclick="goHome(this)">Go Back</button>
+    <button class="button" onclick="goContact(this)">Contact Us</button>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function goHome(btn) {
+      btn.classList.add("disappear");
+      setTimeout(() => {
+        window.location.href = "../Login/index.html"; 
+      }, 700);
+    }
+
+    function goContact(btn) {
+      btn.classList.add("disappear");
+      setTimeout(() => {
+        window.location.href = "contact.html"; 
+      }, 700);
+    }
+
+  </script>
+</body>
+</html>
