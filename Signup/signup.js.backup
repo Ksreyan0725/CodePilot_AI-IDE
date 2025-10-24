@@ -172,30 +172,14 @@ function addInitialMessage() {
     
     chatMessages.appendChild(messageDiv);
     
-    // Type out the message character by character with variable speed
+    // Type out the message character by character
     const paragraph = messageDiv.querySelector('p');
     let charIndex = 0;
-    
-    const getTypingSpeed = (char, nextChar) => {
-        // Base speed with natural variation - faster
-        let speed = 10 + Math.random() * 15; // 10-25ms variation
-        
-        // Slower after punctuation (more realistic pauses)
-        if (char === '.' || char === '!' || char === '?') {
-            speed += 50 + Math.random() * 50; // 50-100ms pause
-        } else if (char === ',' || char === ';') {
-            speed += 20 + Math.random() * 20; // 20-40ms pause
-        } else if (char === ' ') {
-            speed += 3 + Math.random() * 7; // 3-10ms for spaces
-        }
-        
-        return speed;
-    };
+    const typingSpeed = 30; // milliseconds per character
     
     const typeCharacter = () => {
         if (charIndex < welcomeText.length) {
-            const char = welcomeText.charAt(charIndex);
-            paragraph.textContent += char;
+            paragraph.textContent += welcomeText.charAt(charIndex);
             charIndex++;
             
             // Scroll to show the message as it types
@@ -203,9 +187,7 @@ function addInitialMessage() {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
             
-            const nextChar = welcomeText.charAt(charIndex);
-            const speed = getTypingSpeed(char, nextChar);
-            setTimeout(typeCharacter, speed);
+            setTimeout(typeCharacter, typingSpeed);
         } else {
             // Animation complete - remove typing class
             const messageContent = messageDiv.querySelector('.message-content');
@@ -274,32 +256,16 @@ function addMessage(text, isUser = false) {
     
     chatMessages.appendChild(messageDiv);
     
-    // Apply typing effect only to AI messages with natural variation
+    // Apply typing effect only to AI messages
     if (!isUser) {
         const paragraph = messageDiv.querySelector('p');
         let charIndex = 0;
-        
-        const getTypingSpeed = (char, nextChar) => {
-            // Base speed with natural variation - faster
-            let speed = 10 + Math.random() * 15; // 10-25ms variation
-            
-            // Slower after punctuation (more realistic pauses)
-            if (char === '.' || char === '!' || char === '?') {
-                speed += 50 + Math.random() * 50; // 50-100ms pause
-            } else if (char === ',' || char === ';') {
-                speed += 20 + Math.random() * 20; // 20-40ms pause
-            } else if (char === ' ') {
-                speed += 3 + Math.random() * 7; // 3-10ms for spaces
-            }
-            
-            return speed;
-        };
+        const typingSpeed = 30; // milliseconds per character
         
         const typeCharacter = () => {
             if (charIndex < text.length) {
-                const char = text.charAt(charIndex);
                 // Use textContent to add plain text (already escaped)
-                paragraph.textContent += char;
+                paragraph.textContent += text.charAt(charIndex);
                 charIndex++;
                 
                 // Scroll to show the message as it types
@@ -307,9 +273,7 @@ function addMessage(text, isUser = false) {
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 });
                 
-                const nextChar = text.charAt(charIndex);
-                const speed = getTypingSpeed(char, nextChar);
-                setTimeout(typeCharacter, speed);
+                setTimeout(typeCharacter, typingSpeed);
             } else {
                 // Animation complete - remove typing class
                 const messageContent = messageDiv.querySelector('.message-content');
@@ -607,3 +571,22 @@ function togglePasswordVisibility() {
         }
     }
 }
+        userData.password = answer;
+    }
+
+    if (currentQuestion < questions.length) {
+        setTimeout(() => {
+            let nextQuestion = questions[currentQuestion];
+            if (currentQuestion === 1) {
+                nextQuestion = nextQuestion.replace('{name}', userData.fullName);
+            }
+            addMessage(nextQuestion);
+            
+            if (currentQuestion === questions.length - 1) {
+                setTimeout(() => {
+                    addMessage("Success! Your account has been created successfully. Welcome to CodePilot_AI IDE!");
+                    setTimeout(() => {
+                        addMessage("Redirecting you to the dashboard...");
+                        // Hide input smoothly once flow is complete
+                        const inputArea = document.querySelector('.input-container');
+                        if

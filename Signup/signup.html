@@ -27,12 +27,12 @@
     <!-- Chat Mode -->
     <div class="chat-container" id="chatMode">
         <div class="chat-messages" id="chatMessages">
-            <div class="message">
-                <div class="message-avatar">CodePilot_AI</div>
-                <div class="message-content">
-                    <p>Hi there! Welcome to CodePilot_AI IDE. I'm here to help you create your account. What's your full name?</p>
-                </div>
-            </div>
+            <!-- Initial message will be added via JavaScript with animation -->
+        </div>
+
+        <!-- Sign In Option Above Input -->
+        <div class="chat-signin-option" id="chatSignInOption">
+            <p>Already have an account? <a href="../Login/index.html" class="chat-signin-link">Sign In</a></p>
         </div>
 
         <div class="input-container">
@@ -82,10 +82,6 @@
                         <img src="../assets/zohomail.png" alt="Zoho Mail" class="service-logo">
                         Zoho Mail
                     </button>
-                </div>
-                
-                <div class="quick-signin-footer">
-                    Already have an account? <a href="../Login/index.html">Sign In</a>
                 </div>
             </div>
 
@@ -202,8 +198,194 @@
                     setTimeout(function(){ window.location.reload(); }, 300);
                 });
             }
+
+            // Redirect to 404 page for unavailable links
+            redirectUnavailableLinks();
         });
+
+        // Function to handle unavailable links and buttons
+        function redirectUnavailableLinks() {
+            // Get all links with href="#" or empty href
+            const unavailableLinks = document.querySelectorAll('a[href="#"], a[href=""]');
+            
+            unavailableLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Fade out before redirect
+                    document.body.classList.remove('page-loaded');
+                    setTimeout(function() {
+                        window.location.href = '../Others/404.html';
+                    }, 300);
+                });
+            });
+        }
     </script>
     <script src="signup.js"></script>
+
+    <!-- FOOTER SECTION -->
+    <!-- Professional footer for Web-Based AI IDE SaaS platform -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- PRODUCT SECTION -->
+            <!-- Core IDE features and tools -->
+            <div class="footer-section">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    PRODUCT
+                </h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Code Editor</a>
+                    <a href="#" class="footer-link">AI Assistant</a>
+                    <a href="#" class="footer-link">Live Collaboration</a>
+                    <a href="#" class="footer-link">Cloud Workspaces</a>
+                    <a href="#" class="footer-link">Extensions Marketplace</a>
+                    <a href="#" class="footer-link">Terminal & Debugger</a>
+                    <a href="#" class="footer-link">Version Control</a>
+                </div>
+            </div>
+
+            <!-- LANGUAGES & FRAMEWORKS -->
+            <!-- Supported programming languages -->
+            <div class="footer-section">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    LANGUAGES
+                </h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Python</a>
+                    <a href="#" class="footer-link">JavaScript / TypeScript</a>
+                    <a href="#" class="footer-link">Java</a>
+                    <a href="#" class="footer-link">C / C++</a>
+                    <a href="#" class="footer-link">Go</a>
+                    <a href="#" class="footer-link">Rust</a>
+                    <a href="#" class="footer-link">Ruby</a>
+                    <a href="#" class="footer-link">PHP</a>
+                    <a href="#" class="footer-link">View All Languages →</a>
+                </div>
+            </div>
+
+            <!-- RESOURCES SECTION -->
+            <!-- Documentation and learning materials -->
+            <div class="footer-section">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                    RESOURCES
+                </h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API Reference</a>
+                    <a href="#" class="footer-link">Tutorials</a>
+                    <a href="#" class="footer-link">Blog</a>
+                    <a href="#" class="footer-link">Community Forum</a>
+                    <a href="#" class="footer-link">Changelog</a>
+                    <a href="#" class="footer-link">Status Page</a>
+                </div>
+            </div>
+
+            <!-- COMPANY SECTION -->
+            <!-- About company and business info -->
+            <div class="footer-section">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    COMPANY
+                </h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">About Us</a>
+                    <a href="#" class="footer-link">Careers</a>
+                    <a href="#" class="footer-link">Pricing</a>
+                    <a href="#" class="footer-link">Enterprise</a>
+                    <a href="#" class="footer-link">Partners</a>
+                    <a href="#" class="footer-link">Contact Sales</a>
+                </div>
+            </div>
+
+            <!-- SUPPORT SECTION -->
+            <!-- Help and support resources -->
+            <div class="footer-section">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    SUPPORT
+                </h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Help Center</a>
+                    <a href="#" class="footer-link">Contact Support</a>
+                    <a href="#" class="footer-link">System Status</a>
+                    <a href="#" class="footer-link">Report a Bug</a>
+                    <a href="#" class="footer-link">Feature Request</a>
+                    <a href="#" class="footer-link">FAQ</a>
+                </div>
+            </div>
+
+            <!-- CONNECT SECTION -->
+            <!-- Social media links -->
+            <div class="footer-section footer-section-connect">
+                <h3 class="footer-heading">
+                    <svg class="footer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    CONNECT
+                </h3>
+                <div class="social-links">
+                    <a href="https://github.com/Ksreyan0725" class="social-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/github.png" alt="GitHub" class="social-icon-img">
+                    </a>
+                    <a href="https://x.com/SreyanPattanay5?t=oXoHwnGs9M9e37zh_Vsd5A&s=09" class="social-link" aria-label="X" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/X.png" alt="X" class="social-icon-img">
+                    </a>
+                    <a href="https://www.linkedin.com/in/kumar-sreyan-pattanayak-81a495230" class="social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/linkedin.png" alt="LinkedIn" class="social-icon-img">
+                    </a>
+                    <a href="https://t.me/SreyanPattanayak" class="social-link" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/telegram.png" alt="Telegram" class="social-icon-img">
+                    </a>
+                    <a href="https://www.facebook.com/share/1Cj1miKofw/" class="social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/facebook.png" alt="Facebook" class="social-icon-img">
+                    </a>
+                    <a href="https://www.instagram.com/p_a_p_u_n01_?igsh=aWwyZnhicTRuaTI3" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <img src="../assets/Images.icons/instagram.png" alt="Instagram" class="social-icon-img">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- COPYRIGHT & LEGAL SECTION -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p class="copyright">© 2025 <a href="#" class="footer-link-inline">CodePilot_AI IDE</a>. All Rights Reserved.</p>
+                <div class="legal-links">
+                    <a href="#" class="footer-link-inline">Privacy Policy</a>
+                    <span class="separator">•</span>
+                    <a href="#" class="footer-link-inline">Terms of Service</a>
+                    <span class="separator">•</span>
+                    <a href="#" class="footer-link-inline">Cookie Policy</a>
+                    <span class="separator">•</span>
+                    <a href="#" class="footer-link-inline">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END OF FOOTER SECTION -->
+
 </body>
 </html>
