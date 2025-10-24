@@ -79,7 +79,14 @@ function addMessage(text, isUser = false) {
     `;
     
     chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Force immediate scroll to bottom after adding message
+    // Use requestAnimationFrame to ensure DOM has updated
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    });
 
     // After a few messages, start hiding the earliest ones to keep focus
     const messages = chatMessages.querySelectorAll('.message');
