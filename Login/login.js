@@ -16,9 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
             
-            // TODO: Add proper validation
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!email || !password) {
                 alert('Please fill in all fields');
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
                 return;
             }
             
@@ -33,8 +38,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!container) return;
 
         try {
-            const res = await fetch('../chat-message.md', { cache: 'no-store' });
-            if (!res.ok) throw new Error('Failed to fetch chat-message.md');
+            const res = await fetch('../chat-message.md', { 
+                cache: 'no-store',
+                headers: {
+                    'Accept': 'text/plain'
+                }
+            });
+            if (!res.ok) {
+                console.warn(`Failed to fetch chat-message.md: ${res.status} ${res.statusText}`);
+                throw new Error('Failed to fetch chat-message.md');
+            }
             const md = await res.text();
 
             // Parse numbered prompts from markdown

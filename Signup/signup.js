@@ -32,7 +32,7 @@ function calculatePasswordStrength(password) {
     let strength = 0;
     let feedback = [];
     
-    // Check password length
+    // Check password length with better scoring
     if (password.length >= 8) {
         strength++;
     } else {
@@ -43,26 +43,38 @@ function calculatePasswordStrength(password) {
         strength++;
     }
     
-    // Check for lowercase and uppercase
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+    if (password.length >= 16) {
         strength++;
-    } else {
-        if (!/[a-z]/.test(password)) feedback.push('lowercase letters');
-        if (!/[A-Z]/.test(password)) feedback.push('uppercase letters');
     }
     
-    // Check for numbers
-    if (/\d/.test(password)) {
-        strength++;
+    // Check for lowercase and uppercase with better scoring
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    if (hasLower) strength += 0.5;
+    if (hasUpper) strength += 0.5;
+    if (!hasLower) feedback.push('lowercase letters');
+    if (!hasUpper) feedback.push('uppercase letters');
+    
+    // Check for numbers with better scoring
+    const numberCount = (password.match(/\d/g) || []).length;
+    if (numberCount > 0) {
+        strength += Math.min(numberCount * 0.25, 1); // Up to 1 point for multiple numbers
     } else {
         feedback.push('numbers');
     }
     
-    // Check for special characters
-    if (/[^a-zA-Z\d]/.test(password)) {
-        strength++;
+    // Check for special characters with better scoring
+    const specialCount = (password.match(/[^a-zA-Z\d]/g) || []).length;
+    if (specialCount > 0) {
+        strength += Math.min(specialCount * 0.25, 1); // Up to 1 point for multiple special chars
     } else {
         feedback.push('special characters');
+    }
+    
+    // Check for common patterns and sequences
+    if (/123|abc|qwerty|password|admin/i.test(password)) {
+        strength -= 1;
+        feedback.push('avoid common patterns');
     }
     
     return { strength, feedback };
@@ -133,19 +145,63 @@ function addPasswordStrengthIndicator(password) {
 }
 
 // Check localStorage for saved mode preference
+function updateModeToggleLabel() {
+    const modeText = document.getElementById('modeText');
+    const modeIcon = document.getElementById('modeIcon');
+    if (!modeText || !modeIcon) return;
+    
+    const isMobile = window.innerWidth <= 768;
+    
+    // Button label indicates the destination mode (what clicking will switch to)
+    if (isMobile) {
+        // Use images on mobile
+        modeText.style.display = 'none';
+        modeIcon.style.display = 'block';
+        modeIcon.style.width = '20px';
+        modeIcon.style.height = '20px';
+        
+        if (isChatMode) {
+            // Currently in chat, show form icon
+            modeIcon.src = '../assets/Images.icons/form.png';
+            modeIcon.alt = 'Quick Mode';
+        } else {
+            // Currently in form, show chat icon
+            modeIcon.src = '../assets/Images.icons/chat.png';
+            modeIcon.alt = 'Chat Mode';
+        }
+    } else {
+        // Use text on desktop
+        modeIcon.style.display = 'none';
+        modeText.style.display = 'inline';
+        modeText.textContent = isChatMode ? 'Quick Mode' : 'Chat Mode';
+    }
+}
+
 function initializeMode() {
     const savedMode = localStorage.getItem('signupMode');
     if (savedMode === 'form') {
         isChatMode = true; // Start as true so toggleMode switches it to false
         toggleMode();
     }
+    updateModeToggleLabel();
 }
 
 // Run initialization when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     initializeMode();
+    // Keep label responsive to screen resizes
+    window.addEventListener('resize', updateModeToggleLabel);
     if (userInput) {
         userInput.focus();
+        
+        // Add input validation for email in chat mode
+        userInput.addEventListener('input', function(e) {
+            if (currentQuestion === 2) { // Email question
+                const email = e.target.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                e.target.setCustomValidity(emailRegex.test(email) ? '' : 'Please enter a valid email address');
+            }
+        });
     }
     initRevealOnScroll();
     
@@ -155,6 +211,17 @@ document.addEventListener('DOMContentLoaded', function() {
             addInitialMessage();
         }, 500); // Small delay for better UX
     }
+
+    // Cleanup on page unload
+    window.addEventListener('unload', function() {
+        // Clear any timers or intervals
+        if (window.typingTimer) clearTimeout(window.typingTimer);
+        
+        // Remove event listeners
+        if (userInput) {
+            userInput.removeEventListener('input', null);
+        }
+    });
 });
 
 // Function to add the initial welcome message with typing animation
@@ -236,7 +303,6 @@ function toggleMode() {
     if (isChatMode) {
         chatMode.style.display = 'block';
         formMode.style.display = 'none';
-        modeText.textContent = 'Use Quick Form';
         localStorage.setItem('signupMode', 'chat');
         
         // If chat is empty, add the initial message
@@ -248,9 +314,10 @@ function toggleMode() {
     } else {
         chatMode.style.display = 'none';
         formMode.style.display = 'block';
-        modeText.textContent = 'Use Chat Mode';
         localStorage.setItem('signupMode', 'form');
     }
+    // Update the toggle label based on current mode and viewport
+    updateModeToggleLabel();
     
     // Restart typing animation when switching modes
     if (typeof startTypingAnimation === 'function') {
