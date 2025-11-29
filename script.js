@@ -1,13 +1,13 @@
 function launchApp() {
     alert('🚀 Launching CodePilot_AI...\n\nRedirecting to your web IDE...');
     // Replace with your actual IDE URL
-    window.location.href = '../Login/login.html';
+    window.location.href = 'Login/login.html';
 }
 
 function signUp() {
     alert('📝 Opening sign up page...');
     // Replace with your actual sign up URL
-    window.location.href = '../Signup/signup.html';
+    window.location.href = 'Signup/signup.html';
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
