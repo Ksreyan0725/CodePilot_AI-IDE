@@ -10,8 +10,9 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 40px;
+            justify-content: center;
+            gap: 3rem;
+            padding: 40px 20px;
             color: #fff;
             position: relative;
             overflow-x: hidden;
@@ -126,10 +127,8 @@
         }
 
         .left-section {
-            flex: 1;
             max-width: 600px;
             width: 100%;
-            margin: 0 auto;
         }
 
         .logo-container {
