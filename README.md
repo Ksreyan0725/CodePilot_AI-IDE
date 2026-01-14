@@ -17,7 +17,7 @@ Live GitHub Pages demo will be available soon
 
 ## Usage
 Clone the repository:
-git clone https://github.com/your-username/CodePilot_AI_LoginUI
+git clone https://github.com/ksreyan0724/CodePilot_AI_LoginUI
 
 Open the index.html file in your browser to view the UI prototype.
 
